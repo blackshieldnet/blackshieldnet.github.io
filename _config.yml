@@ -1,9 +1,9 @@
 # Site settings
-title: Transcendent    官方
+title: Transcendent-官方
 SEOTitle: Transcendent Studio
 header-img: img/post-bg-desk.jpg
 email: liuzheyi_lzy@163.com
-description: "为 游 戏 而 生"
+description: "为游戏而生"
 keyword: "liuzheyi"
 url: "https://transcendentstudio.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
