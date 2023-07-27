@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>网站登录页</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      padding-top: 100px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .button:hover {
+      background-color: #45a049;
+    }
+    .link-container {
+      margin-top: 40px;
+    }
+    .link-container a {
+      display: block;
+      margin-bottom: 10px;
+      color: #333;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>登录</h2>
+    <div class="form-group">
+      <label for="username">用户名:</label>
+      <input type="text" id="username" name="username" required>
+    </div>
+    <div class="form-group">
+      <label for="password">密码:</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <button class="button" onclick="login()">登录</button>
+    <div id="score-container" style="display: none;">
+      <h3>当前积分:</h3>
+      <p id="score"></p>
+      <div class="link-container">
+        <a href="#" onclick="showPasswordPrompt('Link 1', 'password1', 'https://www.example.com/link1')">Link 1</a>
+        <a href="#" onclick="showPasswordPrompt('Link 2', 'password2', 'https://www.example.com/link2')">Link 2</a>
+        <a href="#" onclick="showPasswordPrompt('Link 3', 'password3', 'https://www.example.com/link3')">Link 3</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 解析文本文件中的用户名和密码
+    function parseUsers(usersText) {
+      const users = {};
+      const lines = usersText.split('\n');
+      for (let line of lines) {
+        const [username, password] = line.split(':');
+        users[username.trim()] = password.trim();
+      }
+      return users;
+    }
+
+    // 解析文本文件中的用户名和积分
+    function parseScores(scoresText) {
+      const scores = {};
+      const lines = scoresText.split('\n');
+      for (let line of lines) {
+        const [username, score] = line.split(':');
+        scores[username.trim()] = parseInt(score.trim());
+      }
+      return scores;
+    }
+
+    // 模拟从文本文件中读取用户名和密码
+    function readUsersFile() {
+      return `liuzheyi:20091126
+zhaoxiaoyu:20091011
+zxy123456:ilovelyq`;
+    }
+
+    // 模拟从文本文件中读取用户名和积分
+    function readScoresFile() {
+      return `user1:999999
+user2:1500
+user3:9999999999999`;
+    }
+
+    // 用户名和密码的映射关系
+    const usersText = readUsersFile();
+    const users = parseUsers(usersText);
+
+    // 用户名和积分的映射关系
+    const scoresText = readScoresFile();
+    const scores = parseScores(scoresText);
+
+    function login() {
+      const usernameInput = document.getElementById("username");
+      const passwordInput = document.getElementById("password");
+      const username = usernameInput.value;
+      const password = passwordInput.value;
+
+      if (users[username] === password) {
+        displayScore(username);
+      } else {
+        alert("用户名或密码错误！");
+      }
+    }
+
+    function displayScore(username) {
+      const scoreContainer = document.getElementById("score-container");
+      const scoreElement = document.getElementById("score");
+      scoreElement.textContent = `积分：${scores[username]}`;
+      scoreContainer.style.display = "block";
+    }
+
+    function showPasswordPrompt(linkName, expectedPassword, linkUrl) {
+      const enteredPassword = prompt(`请输入访问 "${linkName}" 的密码：`);
+
+      // 根据输入的密码判断是否允许访问
+      if (enteredPassword === expectedPassword) {
+        window.location.href = linkUrl;
+      } else {
+        alert("密码错误，无法访问！");
+      }
+    }
+  </script>
+</body>
+</html>
