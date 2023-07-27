@@ -22,7 +22,23 @@ description: "--为游戏而生--"
 -->
 
 
-
+ .button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+      font-size: 14px;
+    }
+    .button:hover {
+      background-color: #45a049;
+    }
 {% for post in paginator.posts %}
 <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">
@@ -41,6 +57,7 @@ description: "--为游戏而生--"
     <p class="post-meta">
         Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}
     </p>
+  <a class="button" href="https://www.example.com">Transcendent商店</a>
 </div>
 <hr>
 {% endfor %}
