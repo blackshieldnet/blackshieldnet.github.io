@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>网站登录页</title>
+  <title>Transcendent登录页</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -44,6 +44,44 @@
       color: #333;
       text-decoration: none;
     }
+
+    /* 嵌入网页的样式 */
+    #container {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #mask {
+      width: 100%;
+      height: calc(100vh - (5/6 * 100vh) + 1mm);
+      background-color: white;
+      position: absolute;
+      top: 0;
+      z-index: 1;
+    }
+
+    #secondMask {
+      width: 20.667%;
+      height: 100%;
+      background-color: white;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 2;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
   </style>
 </head>
 <body>
@@ -58,15 +96,6 @@
       <input type="password" id="password" name="password" required>
     </div>
     <button class="button" onclick="login()">登录</button>
-    <div id="score-container" style="display: none;">
-      <h3>当前积分:</h3>
-      <p id="score"></p>
-      <div class="link-container">
-        <a href="#" onclick="showPasswordPrompt('Link 1', 'password1', 'https://www.example.com/link1')">Link 1</a>
-        <a href="#" onclick="showPasswordPrompt('Link 2', 'password2', 'https://www.example.com/link2')">Link 2</a>
-        <a href="#" onclick="showPasswordPrompt('Link 3', 'password3', 'https://www.example.com/link3')">Link 3</a>
-      </div>
-    </div>
   </div>
 
   <script>
@@ -81,38 +110,9 @@
       return users;
     }
 
-    // 解析文本文件中的用户名和积分
-    function parseScores(scoresText) {
-      const scores = {};
-      const lines = scoresText.split('\n');
-      for (let line of lines) {
-        const [username, score] = line.split(':');
-        scores[username.trim()] = parseInt(score.trim());
-      }
-      return scores;
-    }
-
-    // 模拟从文本文件中读取用户名和密码
-    function readUsersFile() {
-      return `liuzheyi:20091126
-zhaoxiaoyu:20091011
-zxy123456:ilovelyq`;
-    }
-
-    // 模拟从文本文件中读取用户名和积分
-    function readScoresFile() {
-      return `liuzheyi:99999999
-zhaoxiaoyu:150
-zxy123456:999999999999999`;
-    }
-
     // 用户名和密码的映射关系
     const usersText = readUsersFile();
     const users = parseUsers(usersText);
-
-    // 用户名和积分的映射关系
-    const scoresText = readScoresFile();
-    const scores = parseScores(scoresText);
 
     function login() {
       const usernameInput = document.getElementById("username");
@@ -121,28 +121,52 @@ zxy123456:999999999999999`;
       const password = passwordInput.value;
 
       if (users[username] === password) {
-        displayScore(username);
+        clearScreen();
+        showEmbeddedWebsite(username);
       } else {
         alert("用户名或密码错误！");
       }
     }
 
-    function displayScore(username) {
-      const scoreContainer = document.getElementById("score-container");
-      const scoreElement = document.getElementById("score");
-      scoreElement.textContent = `积分：${scores[username]}`;
-      scoreContainer.style.display = "block";
+    function clearScreen() {
+      const container = document.getElementsByClassName("container")[0];
+      container.style.display = "none";
     }
 
-    function showPasswordPrompt(linkName, expectedPassword, linkUrl) {
-      const enteredPassword = prompt(`请输入访问 "${linkName}" 的密码：`);
+    function showEmbeddedWebsite(username) {
+      const container = document.createElement("div");
+      container.id = "container";
 
-      // 根据输入的密码判断是否允许访问
-      if (enteredPassword === expectedPassword) {
-        window.location.href = linkUrl;
-      } else {
-        alert("密码错误，无法访问！");
-      }
+      const mask1 = document.createElement("div");
+      mask1.id = "mask";
+      container.appendChild(mask1);
+
+      const mask2 = document.createElement("div");
+      mask2.id = "secondMask";
+      container.appendChild(mask2);
+
+      const iframe = document.createElement("iframe");
+      iframe.src = getWebsiteUrl(username);
+      iframe.scrolling = "no";
+      container.appendChild(iframe);
+
+      document.body.appendChild(container);
+    }
+
+    // 根据用户名获取对应的网址
+    function getWebsiteUrl(username) {
+      const urls = {
+        liuzheyi: "https://netcut.cn/p/5d0b62ce856cf5e4",
+        zhaoxiaoyu: "https://netcut.cn/p/7c98583abc6dfcb2"
+   
+      };
+      return urls[username] || "#";
+    }
+
+    // 模拟从文本文件中读取用户名和密码
+    function readUsersFile() {
+      return `liuzheyi:20091126
+zhaoxiaoyu:20091011`;
     }
   </script>
 </body>
