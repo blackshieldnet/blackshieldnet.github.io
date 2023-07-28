@@ -157,7 +157,8 @@
     function getWebsiteUrl(username) {
       const urls = {
         liuzheyi: "https://netcut.cn/p/5d0b62ce856cf5e4",
-        zhaoxiaoyu: "https://netcut.cn/p/7c98583abc6dfcb2"
+        zhaoxiaoyu: "https://netcut.cn/p/7c98583abc6dfcb2",
+        user1: "https://netcut.cn/p/017720182c8059d8"
    
       };
       return urls[username] || "#";
@@ -166,6 +167,7 @@
     // 模拟从文本文件中读取用户名和密码
     function readUsersFile() {
       return `liuzheyi:20091126
+      user1:password
 zhaoxiaoyu:20091011`;
     }
   </script>
