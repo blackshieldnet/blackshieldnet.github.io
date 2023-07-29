@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #container {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    #mask {
+      width: 100%;
+      height: calc(100vh - (5/6 * 100vh) + 1mm); /* 高度为原始高度的六分之一减去1毫米 */
+      background-color: white; /* 修改为你希望的颜色或样式 */
+      position: absolute;
+      top: 0;
+      z-index: 1; /* 设置遮罩的层级，确保在iframe之上 */
+    }
+    
+    #secondMask {
+      width: 20.667%; /* 六分之一 */
+      height: 100%;
+      background-color: white; /* 修改为你希望的颜色或样式 */
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 2; /* 设置第二个遮罩的层级，确保在原遮罩之上 */
+    }
+    
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0; /* 设置iframe的层级，在遮罩之下 */
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="mask"></div>
+    <div id="secondMask"></div>
+    <iframe src="https://netcut.cn/transcendent-chat-space" scrolling="no"></iframe>
+  </div>
+</body>
+</html>
