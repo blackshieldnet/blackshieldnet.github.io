@@ -1,13 +1,13 @@
 # Site settings
-title: Transcendent-官方
-SEOTitle: Transcendent Studio
+title: BlackShield-黑盾
+SEOTitle: BlackShield
 header-img: img/post-bg-desk.jpg
-email: liuzheyi_lzy@163.com
-description: "为游戏而生"
-keyword: "liuzheyi"
-url: "https://transcendentstudio.github.io"          # your host, for absolute URL
+email: @刘冠贤
+description: "BlackShield"
+keyword: "BlackShield"
+url: "https://BlackShieldnet.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
-github_repo: "https://github.com/Liuzy1126/liuzy1126.github.io.git" # you code repository
+github_repo: "https://github.com/blackshieldnet/blackshieldnet.github.io.git" # you code repository
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
